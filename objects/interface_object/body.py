@@ -3,12 +3,12 @@ class Body:
         self.pages = pages
         self.vk = vk
 
-    def open_page(self, page_name, keyboard):
+    def open_page(self, event=None, page_name="", keyboard=None):
         for page in self.pages:
             if page.name == page_name:
-                page.reveal_page(keyboard)
+                page.reveal_page(event=event, keyboard=keyboard)
 
-    def click(self, page_name, button_name, keyboard=None):
+    def click(self, event, button_name):
         for page in self.pages:
-            if page.name == page_name:
-                self.open_page(page.click(button_name), keyboard)
+            if page.name == event.text:
+                page.get_button(button_name).action(event)

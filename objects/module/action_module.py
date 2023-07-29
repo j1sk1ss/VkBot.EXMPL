@@ -4,5 +4,5 @@ class ActionModule:
         self.message_text = message_text
         self.user = user
 
-    def action(self):
+    def action(self, event):
         pass

@@ -9,4 +9,4 @@ class Bot:
                 continue
 
             keyboard = VkKeyboard()
-            body.cli(event.text, keyboard)
+            body.click(event, keyboard)

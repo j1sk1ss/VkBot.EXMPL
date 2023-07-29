@@ -7,13 +7,10 @@ class ActionSimpleMessage(ActionModule):
     def __init__(self, vk, message_text="", user="", buttons=None, keyboard=None):
         super().__init__(vk, message_text, user)
 
-        self.vk = vk
-        self.message_text = message_text
-        self.user = user
         self.buttons = buttons
         self.keyboard = keyboard
 
-    def action(self):
+    def action(self, event):
         for button in self.buttons:
             button.place(self.keyboard)
 
@@ -23,5 +20,8 @@ class ActionSimpleMessage(ActionModule):
             "random_id": get_random_id(),
             "keyboard": self.keyboard
         }
+
+        if self.user == "":
+            post["user_id"] = event.user_id
 
         self.vk.messages.send(post)

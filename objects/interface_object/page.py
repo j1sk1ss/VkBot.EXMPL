@@ -11,15 +11,18 @@ class Page:
         self.message_type = message_type
         self.attachment = attachment
 
-    def reveal_page(self, vk, event, keyboard=None):
+    def reveal_page(self, vk, event, user="", keyboard=None):
         for button in self.buttons:
             button.reveal_page(keyboard)
 
         post = {
-            "user_id": event.user_id,
+            "user_id": user,
             "message": self.message,
             "random_id": get_random_id()
         }
+
+        if user == "":
+            post["user_id"] = event.user_id
 
         if self.message_type == MessageType.wall_post:
             post["attachment"] = self.attachment
@@ -29,7 +32,7 @@ class Page:
 
         vk.messages.send(post)
 
-    def click(self, name):
+    def get_button(self, name):
         for button in self.buttons:
             if button.click(name=name):
-                return button.link
+                return button
